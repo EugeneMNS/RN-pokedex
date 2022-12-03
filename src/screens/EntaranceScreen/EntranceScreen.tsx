@@ -1,6 +1,9 @@
 import React from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {useAppNavigation} from "./types";
+import {useAppNavigation} from "../types";
+import AnimatedLottieView from "lottie-react-native";
+
+import pokebolaAnimation from "./pokebola.json";
 
 export const EntranceScreen = () => {
     const navigation = useAppNavigation();
@@ -12,6 +15,7 @@ export const EntranceScreen = () => {
         <View style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.wrapperAnimation}>
+                    <AnimatedLottieView autoPlay source={pokebolaAnimation} loop />
                 </View>
                 <Text style={styles.title}>Welcome!</Text>
                 <Text style={styles.paragraph}>Find all pokemon in one place</Text>
