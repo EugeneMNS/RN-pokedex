@@ -6,6 +6,7 @@ export type PokemonItem = {
 }
 
 export type Pokemon = {
+    url: string;
     id: number;
     name: string;
     sprites: {
