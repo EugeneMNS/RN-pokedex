@@ -4,6 +4,7 @@ import {api, PokemonItem} from "../api/api";
 import {useAppNavigation} from "./types";
 import {useAppDispatch, useAppSelector} from "../store/store";
 import {getAllPokemon} from "../store/rootSlice";
+import {CardPokemon} from "../components/CardPokemon";
 
 export const Home = () => {
 
@@ -29,7 +30,8 @@ export const Home = () => {
 
     return (
         <View style = {{paddingHorizontal:20}}>
-            <FlatList data={allPokemon} renderItem={render} />
+            {/*<FlatList data={allPokemon} renderItem={render} />*/}
+            <CardPokemon/>
         </View>
     )
 }

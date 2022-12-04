@@ -25,7 +25,7 @@ export const getPokemonById = createAsyncThunk<Pokemon, string>('root/getPokemon
 
 const initialState = {
     allPokemon: [] as PokemonItem[],
-    pokemon: null as null | PokemonItem,
+    pokemon: {} as Pokemon,
 }
 
 export const clearPokemonState= createAction('root/clearPokemonState');
@@ -43,7 +43,7 @@ const rootSlice = createSlice({
             state.pokemon = action.payload;
         })
             .addCase(clearPokemonState, (state) => {
-            state.pokemon = null;
+            state.pokemon = {} as Pokemon;
         })
     }
 });
