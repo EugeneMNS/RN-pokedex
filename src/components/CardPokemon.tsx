@@ -25,11 +25,11 @@ export const CardPokemon = (props: DetailsPropsType) => {
                 <ImageBackground style={styles.cardBackgroundDotImage} source={dotsCardImage}/>
                 <Text style={styles.pokemonNumber}>Number</Text>
                 <Text style={styles.pokemonName}>Name</Text>
-                <View>
-                    <View>
-                        <Text>Type</Text>
+                    <View style={styles.pokemonTypeList}>
+                        <View style={styles.pokemonTypeBadge}>
+                            <Text style={styles.pokemonType}>Type</Text>
+                        </View>
                     </View>
-                </View>
             </View>
             <View>
                 <ImageBackground style={styles.pokemonBackgroundImage} source={pokeballCardImage}/>
@@ -71,6 +71,23 @@ const styles = StyleSheet.create({
         fontSize: 26,
         lineHeight: 31,
         fontWeight: "700",
+    },
+    pokemonTypeList: {
+        flexDirection: "row",
+    },
+    pokemonTypeBadge: {
+        backgroundColor: "#9DA0AA",
+        borderRadius: 3,
+        paddingVertical: 5.5,
+        paddingHorizontal: 5,
+        marginTop: 5,
+        marginRight: 5,
+    },
+    pokemonType: {
+        color: "#fff",
+        fontSize: 12,
+        lineHeight: 14,
+        fontWeight: "400",
     },
     pokemonBackgroundImage: {
         width: 130,
