@@ -3,12 +3,16 @@ import axios from "axios";
 export type PokemonItem = {
     name: string;
     url: string;
+    id: number;
+    type: string[];
 }
 
 export type Pokemon = {
     url: string;
     id: number;
     name: string;
+
+    type: string[];
     sprites: {
         other: {
             'official-artwork': {

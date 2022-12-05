@@ -6,48 +6,62 @@ import pokeballCardImage from "../global/assets/Pokeball.png";
 import {useAppDispatch, useAppSelector} from "../store/store";
 import {clearPokemonState, getPokemonById} from "../store/rootSlice";
 import {DetailsPropsType} from "../screens/types";
+import theme from "../global/styles/theme";
 
-export const CardPokemon = (props: DetailsPropsType) => {
+type CardsPropsType = {
+    name: string
+    id: number
+    types: Array<string>
+    url: string
+}
+
+export const CardPokemon = (props: CardsPropsType) => {
 
     /*const pokemon = useAppSelector(state => state.root.pokemon);
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();*/
 
-    useEffect(() => {
+  /*  useEffect(() => {
         dispatch(getPokemonById(props.route.params.url));
         return () => {
             dispatch(clearPokemonState());
         }
     }, []);*/
+    /*const pokeName = props.name.charAt(0).toUpperCase() + props.name.slice(1);*/
+
+    // background depending on the type
+    const typePoke = props.types[0].toLowerCase();
 
     return (
         <TouchableOpacity style={styles.card} activeOpacity={0.9}>
             <View>
                 <ImageBackground style={styles.cardBackgroundDotImage} source={dotsCardImage}/>
-                <Text style={styles.pokemonNumber}>Number</Text>
-                <Text style={styles.pokemonName}>Name</Text>
+                <Text style={styles.pokemonNumber}>#{props.id.toString().padStart(3,"0")}</Text>
+                <Text style={styles.pokemonName}>{props.name}</Text>
                     <View style={styles.pokemonTypeList}>
-                        <View style={styles.pokemonTypeBadge}>
-                            <Text style={styles.pokemonType}>Type</Text>
+                        {props.types.map((type, index) => (
+                        <View style={styles.pokemonTypeBadge} key={index}>
+                                <Text key={index} style={styles.pokemonType}>{type}</Text>
                         </View>
+                        ))}
                     </View>
             </View>
             <View>
                 <ImageBackground style={styles.pokemonBackgroundImage} source={pokeballCardImage}/>
                 <Image style={styles.pokemonImage}
-                       source={{uri: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"}}
+                       source={{uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.id}.png`}}
                        /*source={{uri: pokemon.sprites.other["official-artwork"].front_default}}*/
                 />
             </View>
         </TouchableOpacity>
     );
-}
+};
 
 const styles = StyleSheet.create({
     card: {
         flexDirection: "row",
         justifyContent: "space-between",
         position: "relative",
-        backgroundColor: "#888383",
+        backgroundColor: theme.colors.backgroundType.fighting,
         borderRadius: 10,
         padding: 20,
         marginTop:30
@@ -67,7 +81,7 @@ const styles = StyleSheet.create({
         opacity: 0.6,
     },
     pokemonName: {
-        color: "#bb241f",
+        color: "#fff",
         fontSize: 26,
         lineHeight: 31,
         fontWeight: "700",
@@ -76,7 +90,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     pokemonTypeBadge: {
-        backgroundColor: "#9DA0AA",
+        backgroundColor: theme.colors.type.grass,
         borderRadius: 3,
         paddingVertical: 5.5,
         paddingHorizontal: 5,
@@ -103,5 +117,4 @@ const styles = StyleSheet.create({
         top: -50,
         right: -10,
     },
-
 });

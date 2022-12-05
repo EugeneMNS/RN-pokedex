@@ -3,10 +3,11 @@ import {FlatList, ImageBackground, ListRenderItem, StyleSheet, Text, TouchableOp
 import {api, PokemonItem} from "../api/api";
 import {useAppNavigation} from "./types";
 import {useAppDispatch, useAppSelector} from "../store/store";
-import {getAllPokemon} from "../store/rootSlice";
+import {getAllPokemon, getPokemonById} from "../store/rootSlice";
 import {CardPokemon} from "../components/CardPokemon";
 
 import pokeballBackgroundImage from "../global/assets/Pokeball-bg-half.png";
+import pokeLocal from "../pokeLocal.json"
 
 export const Home = () => {
 
@@ -21,16 +22,19 @@ export const Home = () => {
     const render: ListRenderItem<PokemonItem> = ({item}) => {
         return (
             <TouchableOpacity onPress={() => {
-                navigation.navigate("Details", {url: item.url})
+                navigation.navigate("Details", {url: item.url, name: item.name, id: item.id})
             }}>
-                {/*<View style={styles.item}>
+               {/* <View style={styles.item}>
                     <Text>{item.name}</Text>
                 </View>*/}
-                <CardPokemon />
+                <CardPokemon
+                    name={item.name}
+                    id={item.id}
+                    types={item.type}
+                />
             </TouchableOpacity>
         );
     }
-
     return (
         <View style={styles.container}>
             <ImageBackground style={styles.containerBackgroundImage}
@@ -39,7 +43,7 @@ export const Home = () => {
                 <Text style={styles.title}>Pokedex</Text>
                 <Text style={styles.paragraph}>Find all Pokemon in one place</Text>
                 <View style={styles.content}>
-                    <FlatList data={allPokemon} renderItem={render}/>
+                    <FlatList data={pokeLocal} renderItem={render}/>
                 </View>
             </View>
         </View>
