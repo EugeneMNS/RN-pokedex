@@ -30,16 +30,17 @@ export const CardPokemon = (props: CardsPropsType) => {
 
     // background depending on the type
     const typePoke = props.types[0].toLowerCase();
+    const typePokeBadge = props.types[0].toLowerCase();
 
     return (
-        <TouchableOpacity style={styles.card} activeOpacity={0.9}>
+        <TouchableOpacity style={[styles.card,{backgroundColor: theme.colors.backgroundType[typePoke]}]} activeOpacity={0.9}>
             <View>
                 <ImageBackground style={styles.cardBackgroundDotImage} source={dotsCardImage}/>
                 <Text style={styles.pokemonNumber}>#{props.id.toString().padStart(3,"0")}</Text>
                 <Text style={styles.pokemonName}>{props.name}</Text>
                     <View style={styles.pokemonTypeList}>
                         {props.types.map((type, index) => (
-                        <View style={styles.pokemonTypeBadge} key={index}>
+                        <View style={[styles.pokemonTypeBadge, {backgroundColor: theme.colors.type[type.toLowerCase()]}]} key={index}>
                                 <Text key={index} style={styles.pokemonType}>{type}</Text>
                         </View>
                         ))}
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     pokemonTypeBadge: {
-        backgroundColor: theme.colors.type.grass,
         borderRadius: 3,
         paddingVertical: 5.5,
         paddingHorizontal: 5,
