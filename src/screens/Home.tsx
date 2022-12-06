@@ -22,8 +22,10 @@ export const Home = () => {
     const render: ListRenderItem<PokemonItem> = ({item}) => {
         return (
             <TouchableOpacity onPress={() => {
-                navigation.navigate("Details", {url: item.url, name: item.name, id: item.id})
-            }}>
+                navigation.navigate("Details", {name: item.name, id: item.id, types: item.type});
+            }}
+            activeOpacity={0.9}
+            >
                {/* <View style={styles.item}>
                     <Text>{item.name}</Text>
                 </View>*/}
@@ -40,7 +42,9 @@ export const Home = () => {
             <ImageBackground style={styles.containerBackgroundImage}
                              source={pokeballBackgroundImage}/>
             <View style={styles.scrollView}>
+                <TouchableOpacity onPress={() =>{navigation.navigate("EntranceScreen")}}>
                 <Text style={styles.title}>Pokedex</Text>
+                </TouchableOpacity>
                 <Text style={styles.paragraph}>Find all Pokemon in one place</Text>
                 <View style={styles.content}>
                     <FlatList data={pokeLocal} renderItem={render}/>

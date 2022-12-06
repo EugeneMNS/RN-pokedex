@@ -2,7 +2,7 @@ import axios from "axios";
 
 export type PokemonItem = {
     name: string;
-    url: string;
+    url?: string;
     id: number;
     type: string[];
 }

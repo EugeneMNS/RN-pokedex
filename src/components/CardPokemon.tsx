@@ -12,7 +12,7 @@ type CardsPropsType = {
     name: string
     id: number
     types: Array<string>
-    url: string
+    url?: string
 }
 
 export const CardPokemon = (props: CardsPropsType) => {
@@ -33,7 +33,7 @@ export const CardPokemon = (props: CardsPropsType) => {
     const typePokeBadge = props.types[0].toLowerCase();
 
     return (
-        <TouchableOpacity style={[styles.card,{backgroundColor: theme.colors.backgroundType[typePoke]}]} activeOpacity={0.9}>
+        <View style={[styles.card,{backgroundColor: theme.colors.backgroundType[typePoke]}]}>
             <View>
                 <ImageBackground style={styles.cardBackgroundDotImage} source={dotsCardImage}/>
                 <Text style={styles.pokemonNumber}>#{props.id.toString().padStart(3,"0")}</Text>
@@ -53,7 +53,7 @@ export const CardPokemon = (props: CardsPropsType) => {
                        /*source={{uri: pokemon.sprites.other["official-artwork"].front_default}}*/
                 />
             </View>
-        </TouchableOpacity>
+        </View>
     );
 };
 

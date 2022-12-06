@@ -5,13 +5,14 @@ export type RootStackParamList = {
     EntranceScreen: undefined;
     Home: undefined;
     Details: {
-        url: string;
+        url?: string;
         name: string;
         id: number;
+        types: string[];
     };
 }
 
-export type DetailsPropsType = NativeStackScreenProps<RootStackParamList, 'Details'>;``
+export type DetailsPropsType = NativeStackScreenProps<RootStackParamList, 'Details'>;
 
 type UseNavigationType = NavigationProp<RootStackParamList>
 

@@ -14,7 +14,7 @@ export const Details  = (props: DetailsPropsType) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getPokemonById(props.route.params.url));
+        dispatch(getPokemonById(props.route.params.url as string));
         return () => {
             dispatch(clearPokemonState());
         }
