@@ -6,9 +6,9 @@ export type RootStackParamList = {
     Home: undefined;
     Details: {
         url?: string;
-        name: string;
+        name?: string;
         id: number;
-        types: string[];
+        types?: string[];
     };
 }
 

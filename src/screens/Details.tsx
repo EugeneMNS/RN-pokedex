@@ -15,13 +15,32 @@ export const Details  = (props: DetailsPropsType) => {
     const dispatch = useAppDispatch();
     const navigation = useAppNavigation();
 
-    useEffect(() => {
+    const pokemonId = props.route.params.id;
+    const getLocalPokemonById = (id: number) => {
+        const localPokemon = require("../pokeLocal.json");
+        return localPokemon.find((item: any) => item.id === id);
+    }
+
+    // get pokemon object from local json file by id
+    const localPokemon = getLocalPokemonById(pokemonId);
+    const pokeName =  localPokemon.name.charAt(0).toUpperCase() + localPokemon.name.slice(1)
+    // get types array from local json file by id
+    const localPokemonTypes = localPokemon.type
+
+    //get base stats from local json file by id
+    const localPokemonStats = localPokemon.base
+
+    // make destrycturing for base stats
+    const {HP, Attack, Defense, "Sp. Attack": SpAttack, "Sp. Defense": SpDefense, Speed} = localPokemonStats;
+
+    /*useEffect(() => {
         dispatch(getPokemonById(props.route.params.url as string));
         return () => {
             dispatch(clearPokemonState());
         }
-    }, []);
+    }, []);*/
 
+    console.log(localPokemonStats)
     return (
            /* <View>
                 <Image source={{uri: pokemon.sprites.other["official-artwork"].front_default}}
@@ -29,7 +48,7 @@ export const Details  = (props: DetailsPropsType) => {
                 />
                 <Text>{pokemon.name}</Text>
             </View>*/
-                <View style={styles.container}>
+                <View style={[styles.container, {backgroundColor: theme.colors.backgroundType[localPokemonTypes[0].toLowerCase()]}]}>
                     <View style={styles.header}>
                         <ImageBackground source={pokeballBackgroundImage}/>
                         <ImageBackground source={dotsCardImage}/>
@@ -44,21 +63,26 @@ export const Details  = (props: DetailsPropsType) => {
                             }}
                         >
                             <View>
-                                <Text style={styles.pokeName}>Bulba</Text>
+                                <Text style={styles.pokeName}>{pokeName}</Text>
                                 <View style={styles.typeList}>
-                                    <View style={styles.badge}>
+                                    {localPokemon.type.map((type: string, index: number) => (
+                                        <View style={[styles.badge, {backgroundColor: theme.colors.type[type.toLowerCase()]}]} key={index}>
+                                            <Text style={styles.badgeText} key={index}>{type}</Text>
+                                        </View>
+                                    ))}
+                                    {/*<View style={styles.badge}>
                                         <Text>Grass</Text>
                                     </View>
                                     <View style={styles.badge}>
                                         <Text>Fire</Text>
-                                    </View>
+                                    </View>*/}
                                 </View>
                             </View>
-                            <Text style={styles.pokeNumber}>6878</Text>
+                            <Text style={styles.pokeNumber}>#{localPokemon.id.toString().padStart(3,"0")}</Text>
                         </View>
                         <Image style={styles.pokemonImage}
                                source={{
-                         uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png`,
+                         uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`,
                         }}/>
                     </View>
 
@@ -68,7 +92,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>HP</Text>
-                                <Text style={styles.value}>45</Text>
+                                <Text style={styles.value}>{HP}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -76,7 +100,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Attack</Text>
-                                <Text style={styles.value}>49</Text>
+                                <Text style={styles.value}>{Attack}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -84,7 +108,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Defense</Text>
-                                <Text style={styles.value}>40</Text>
+                                <Text style={styles.value}>{Defense}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -92,7 +116,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>St. Atk</Text>
-                                <Text style={styles.value}>65</Text>
+                                <Text style={styles.value}>{SpAttack}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -100,7 +124,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Sp Def</Text>
-                                <Text style={styles.value}>65</Text>
+                                <Text style={styles.value}>{SpDefense}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -108,7 +132,7 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Speed</Text>
-                                <Text style={styles.value}>45</Text>
+                                <Text style={styles.value}>{Speed}</Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -116,7 +140,9 @@ export const Details  = (props: DetailsPropsType) => {
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Total</Text>
-                                <Text style={styles.value}>318</Text>
+                                <Text style={styles.value}>
+                                    {HP + Attack + Defense + SpAttack + SpDefense + Speed}
+                                </Text>
                                 <ScrollView style={styles.percentBar}>
                                     <ScrollView style={styles.percent}/>
                                 </ScrollView>
@@ -129,7 +155,6 @@ export const Details  = (props: DetailsPropsType) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#B5B9C4",
         flex: 1,
         position: "relative",
     },
