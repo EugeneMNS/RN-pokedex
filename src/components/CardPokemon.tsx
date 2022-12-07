@@ -28,7 +28,6 @@ export const CardPokemon = (props: CardsPropsType) => {
     }, []);*/
     /*const pokeName = props.name.charAt(0).toUpperCase() + props.name.slice(1);*/
 
-    // background depending on the type
     const typePoke = props.types[0].toLowerCase();
     const typePokeBadge = props.types[0].toLowerCase();
 
