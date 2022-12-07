@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../store/store";
 import {clearPokemonState, getPokemonById} from "../store/rootSlice";
 
 import pokeballBackgroundImage from "../global/assets/Pokeball-bg.png";
-import dotsCardImage from "../global/assets/Pokeball.png";
+import dotsCardImage from "../global/assets/Dots.png";
 import backImage from "../global/assets/Back.png";
 import theme from "../global/styles/theme";
 
@@ -32,6 +32,9 @@ export const Details  = (props: DetailsPropsType) => {
 
     // make destrycturing for base stats
     const {HP, Attack, Defense, "Sp. Attack": SpAttack, "Sp. Defense": SpDefense, Speed} = localPokemonStats;
+    const totalPoke = HP + Attack + Defense + SpAttack + SpDefense + Speed;
+
+    const colorOfTypes = theme.colors.type[localPokemonTypes[0].toLowerCase()]
 
     /*useEffect(() => {
         dispatch(getPokemonById(props.route.params.url as string));
@@ -50,8 +53,8 @@ export const Details  = (props: DetailsPropsType) => {
             </View>*/
                 <View style={[styles.container, {backgroundColor: theme.colors.backgroundType[localPokemonTypes[0].toLowerCase()]}]}>
                     <View style={styles.header}>
-                        <ImageBackground source={pokeballBackgroundImage}/>
-                        <ImageBackground source={dotsCardImage}/>
+                        <ImageBackground style={styles.containerBackgroundImage} source={pokeballBackgroundImage}/>
+                        <ImageBackground style={styles.dotsBackgroundImage} source={dotsCardImage}/>
                         <TouchableOpacity style={styles.goBackButton} onPress={navigation.goBack}>
                             <Image source={backImage}/>
                         </TouchableOpacity>
@@ -88,13 +91,15 @@ export const Details  = (props: DetailsPropsType) => {
 
                     <View style={styles.content}>
                         <ScrollView>
-                            <Text style={styles.paragraph}>Status</Text>
+                            <Text style={[styles.paragraph, {color: colorOfTypes}]}>
+                                Status
+                            </Text>
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>HP</Text>
                                 <Text style={styles.value}>{HP}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
@@ -102,7 +107,7 @@ export const Details  = (props: DetailsPropsType) => {
                                 <Text style={styles.type}>Attack</Text>
                                 <Text style={styles.value}>{Attack}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
@@ -110,7 +115,7 @@ export const Details  = (props: DetailsPropsType) => {
                                 <Text style={styles.type}>Defense</Text>
                                 <Text style={styles.value}>{Defense}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
@@ -118,7 +123,7 @@ export const Details  = (props: DetailsPropsType) => {
                                 <Text style={styles.type}>St. Atk</Text>
                                 <Text style={styles.value}>{SpAttack}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
@@ -126,7 +131,7 @@ export const Details  = (props: DetailsPropsType) => {
                                 <Text style={styles.type}>Sp Def</Text>
                                 <Text style={styles.value}>{SpDefense}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
@@ -134,17 +139,17 @@ export const Details  = (props: DetailsPropsType) => {
                                 <Text style={styles.type}>Speed</Text>
                                 <Text style={styles.value}>{Speed}</Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${HP}%`}]}/>
                                 </ScrollView>
                             </View>
 
                             <View style={styles.status}>
                                 <Text style={styles.type}>Total</Text>
                                 <Text style={styles.value}>
-                                    {HP + Attack + Defense + SpAttack + SpDefense + Speed}
+                                    {totalPoke}
                                 </Text>
                                 <ScrollView style={styles.percentBar}>
-                                    <ScrollView style={styles.percent}/>
+                                    <ScrollView style={[styles.percent, {backgroundColor: colorOfTypes, width: `${totalPoke/10}%` }]}/>
                                 </ScrollView>
                             </View>
                         </ScrollView>
